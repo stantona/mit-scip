@@ -1,0 +1,4 @@
+*** EX126
+- This procedure would generate many duplicate calculations.
+- Tree recursion grows with N so that is why it is transformed from O(log n) to O(n)
+- I could only demostrate this by drawing out the tree (I couldn't prove it).
