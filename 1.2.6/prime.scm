@@ -17,7 +17,9 @@
   (= (remainder a b) 0))
 
 (define (prime? n)
-  (= (smallest-divisor n) n))
+  (if (<= n 1)
+      #f
+      (= (smallest-divisor n) n)))
 
 (define (square n)
   (* n n))
