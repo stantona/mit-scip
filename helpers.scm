@@ -14,3 +14,6 @@
 
 ;; Return paramter (not required after lambda section)
 (define (identity n) n)
+
+;; The average of two numbers
+(define (average x y) (/ (+ x y) 2))

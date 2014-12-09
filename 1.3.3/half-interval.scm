@@ -20,6 +20,8 @@
            (search f a b))
           ((and (positive? a-value) (negative? b-value))
            (search f b a))
+          (else
+           (error "Values are not of opposite signs")))))
 
 (define (close-enough? x y)
   (< (abs (- x y)) 0.001))
