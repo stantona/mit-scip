@@ -48,5 +48,3 @@
 
 ;; By executing find-k-term with a tolerance of 0.0001 (4 decimal places), 
 ;; k must equal 12 to reach the tolerance.
-  
-      
