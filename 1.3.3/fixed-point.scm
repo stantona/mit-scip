@@ -13,7 +13,6 @@
       (if (close-enough? guess next)
           next
           (try next))))
-  (trace try)
   (try first-guess))
 
 ;; Using average damping to find the fixed point of a function.
@@ -35,9 +34,6 @@
 (print "30 steps without average damping")
 (newline)
 
-;; With average damping
-(define (average x y)
-  (/ (+ x y) 2))
 
 (print "Exercise 1.36 - with average damping")
 (newline)
