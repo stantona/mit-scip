@@ -17,3 +17,13 @@
 
 ;; The average of two numbers
 (define (average x y) (/ (+ x y) 2))
+
+;; Compose function to string functions together onto a single value
+(define (compose f g)
+  (lambda(x)
+    (f (g x))))
+
+;; Doubles a numeric value
+(define (double x)
+  (* x 2))
+
