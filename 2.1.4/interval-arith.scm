@@ -58,16 +58,12 @@
             (not-neg? low-x up-x))
            (make-interval (* low-y up-x) (* up-y low-x)))
           ((and ;; case 7 - all positives except lower bound 
-            (< low-x 0)
-            (>= up-x 0)
-            (>= low-y 0)
-            (>= up-y 0))
+            (neg-lower-pos-upper? low-x up-x)
+            (not-neg? low-y up-y))
            (make-interval (* low-x up-y) (* up-x up-y)))
           ((and ;; case 8 - inversion of above
-            (< low-y 0)
-            (>= up-y 0)
-            (>= low-x 0)
-            (>= up-x 0))
+            (neg-lower-pos-upper? low-y up-y)
+            (not-neg? low-x up-x))
            (make-interval (* low-y up-x) (* up-y up-x)))
           (else ;; case 9 - lower bounds negative, upper bounds positive
            (make-interval (min (* low-x up-y) (* low-y up-x))
