@@ -24,71 +24,54 @@
 ;; Lets make a test file to compare results of the original implementation
 ;; with this one.
 (define (mul-interval-cases x y)
-  (cond ((and ;; case 1 - all negatives
-          (negative? (lower-bound x))
-          (negative? (upper-bound x))
-          (negative? (lower-bound y))
-          (negative? (upper-bound y)))
-         (make-interval (* (lower-bound x) (lower-bound y))
-                        (* (upper-bound x) (upper-bound y))))
-        ((and ;; case 2 - all positives
-          (positive? (lower-bound x))
-          (positive? (upper-bound x))
-          (positive? (lower-bound y))
-          (positive? (upper-bound y)))
-         (make-interval (* (lower-bound x) (lower-bound y))
-                        (* (upper-bound x) (upper-bound y))))
-         ((and ;; case 3 - all negatives except positive upper bound
-          (negative? (lower-bound x))
-          (negative? (upper-bound x))
-          (negative? (lower-bound y))
-          (positive? (upper-bound y)))
-         (make-interval (* (lower-bound x) (upper-bound y))
-                        (* (lower-bound x) (lower-bound y))))
-         ((and ;; case 4 inversion of above
-          (negative? (lower-bound y))
-          (negative? (upper-bound y))
-          (negative? (lower-bound x))
-          (positive? (upper-bound x)))
-         (make-interval (* (lower-bound y) (upper-bound x))
-                        (* (upper-bound y) (lower-bound x))))
-         ((and ;; case 5 - negative x, positive y
-          (negative? (lower-bound x))
-          (negative? (upper-bound x))
-          (positive? (lower-bound y))
-          (positive? (upper-bound y)))
-         (make-interval (* (lower-bound x) (upper-bound y))
-                        (* (upper-bound x) (lower-bound y))))
-         ((and ;; case 6 - invert case 5
-          (negative? (lower-bound y))
-          (negative? (upper-bound y))
-          (positive? (lower-bound x))
-          (positive? (upper-bound x)))
-         (make-interval (* (lower-bound y) (upper-bound x))
-                        (* (upper-bound y) (lower-bound x))))
-         ((and ;; case 7 - all positives except lower bound x
-          (negative? (lower-bound x))
-          (positive? (upper-bound x))
-          (positive? (lower-bound y))
-          (positive? (upper-bound y)))
-         (make-interval (* (lower-bound x) (upper-bound y))
-                        (* (upper-bound x) (upper-bound y))))
-         ((and ;; case 8 - inversion of above
-          (negative? (lower-bound y))
-          (positive? (upper-bound y))
-          (positive? (lower-bound x))
-          (positive? (upper-bound x)))
-         (make-interval (* (lower-bound y) (upper-bound x))
-                        (* (upper-bound y) (upper-bound x))))
-         ((and ;; case 9 - lower bounds negative, upper bounds positive
-          (negative? (lower-bound x))
-          (positive? (upper-bound x))
-          (negative? (lower-bound y))
-          (positive? (upper-bound y)))
-         (make-interval (min (* (lower-bound x) (upper-bound y)) (* (lower-bound y) (upper-bound x)))
-                        (max (* (upper-bound x) (upper-bound y)) (* (lower-bound x) (lower-bound y)))))
-         (else
-          #f)))
+  (let ((low-x (lower-bound x))
+        (low-y (lower-bound y))
+        (up-x (upper-bound x))
+        (up-y (upper-bound y)))
+
+    (define (neg? lower upper) (and (< lower 0) (< upper 0)))
+    (define (not-neg? lower upper) (and (>= lower 0) (>= upper 0)))
+    (define (neg-lower-pos-upper? lower upper) (and (< lower 0) (>= upper 0)))
+    
+    (cond ((and 
+            (neg? low-x up-x) 
+            (neg? low-y up-y))
+           (make-interval (* low-x low-y) (* up-x up-y)))
+          ((and
+            (not-neg? low-x up-x)
+            (not-neg? low-y up-y))
+           (make-interval (* low-x low-y) (* up-x up-y)))
+          ((and
+            (neg? low-x up-x)
+            (neg-lower-pos-upper? low-y up-y))
+           (make-interval (* low-x up-y) (* low-x low-y)))
+          ((and ;; case 4 inversion of above
+            (neg? low-y up-y)
+            (neg-lower-pos-upper? low-x up-x))
+           (make-interval (* low-y up-x) (* up-y low-x)))
+          ((and ;; case 5 - negative x, positive y
+            (neg? low-x up-x)
+            (not-neg? low-y up-y))
+           (make-interval (* low-x up-y) (* up-x low-y)))
+          ((and ;; case 6 - invert case 5
+            (neg? low-y up-y)
+            (not-neg? low-x up-x))
+           (make-interval (* low-y up-x) (* up-y low-x)))
+          ((and ;; case 7 - all positives except lower bound 
+            (< low-x 0)
+            (>= up-x 0)
+            (>= low-y 0)
+            (>= up-y 0))
+           (make-interval (* low-x up-y) (* up-x up-y)))
+          ((and ;; case 8 - inversion of above
+            (< low-y 0)
+            (>= up-y 0)
+            (>= low-x 0)
+            (>= up-x 0))
+           (make-interval (* low-y up-x) (* up-y up-x)))
+          (else ;; case 9 - lower bounds negative, upper bounds positive
+           (make-interval (min (* low-x up-y) (* low-y up-x))
+                          (max (* up-x up-y) (* low-x low-y)))))))
         
 (define (mul-interval x y)
   (let ((p1 (* (lower-bound x) (lower-bound y)))
