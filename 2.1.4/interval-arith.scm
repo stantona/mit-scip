@@ -24,48 +24,52 @@
 ;; Lets make a test file to compare results of the original implementation
 ;; with this one.
 (define (mul-interval-cases x y)
+  (define (interval-sign lower upper)
+    (cond ((and (< lower 0) (< upper 0)) -1)
+          ((and (>= lower 0) (>= upper 0)) 1)
+          (else 0)))
+
   (let ((low-x (lower-bound x))
         (low-y (lower-bound y))
         (up-x (upper-bound x))
         (up-y (upper-bound y)))
-
-    (define (neg? lower upper) (and (< lower 0) (< upper 0)))
-    (define (not-neg? lower upper) (and (>= lower 0) (>= upper 0)))
-    (define (neg-lower-pos-upper? lower upper) (and (< lower 0) (>= upper 0)))
+    
+    (define (sign-x) (interval-sign low-x up-x))
+    (define (sign-y) (interval-sign low-y up-y))
     
     (cond ((and 
-            (neg? low-x up-x) 
-            (neg? low-y up-y))
+            (negative? (sign-x)) 
+            (negative? (sign-y)))
+           (make-interval (* low-x low-y) (* up-x up-y)))
+          ((and 
+            (positive? (sign-x))
+            (positive? (sign-y)))
            (make-interval (* low-x low-y) (* up-x up-y)))
           ((and
-            (not-neg? low-x up-x)
-            (not-neg? low-y up-y))
-           (make-interval (* low-x low-y) (* up-x up-y)))
-          ((and
-            (neg? low-x up-x)
-            (neg-lower-pos-upper? low-y up-y))
+            (negative? (sign-x))
+            (zero? (sign-y)))
            (make-interval (* low-x up-y) (* low-x low-y)))
-          ((and ;; case 4 inversion of above
-            (neg? low-y up-y)
-            (neg-lower-pos-upper? low-x up-x))
+          ((and
+            (negative? (sign-y))
+            (zero? (sign-x)))
            (make-interval (* low-y up-x) (* up-y low-x)))
-          ((and ;; case 5 - negative x, positive y
-            (neg? low-x up-x)
-            (not-neg? low-y up-y))
+          ((and
+            (negative? (sign-x))
+            (positive? (sign-y)))
            (make-interval (* low-x up-y) (* up-x low-y)))
-          ((and ;; case 6 - invert case 5
-            (neg? low-y up-y)
-            (not-neg? low-x up-x))
+          ((and
+            (negative? (sign-y))
+            (positive? (sign-x)))
            (make-interval (* low-y up-x) (* up-y low-x)))
-          ((and ;; case 7 - all positives except lower bound 
-            (neg-lower-pos-upper? low-x up-x)
-            (not-neg? low-y up-y))
+          ((and
+            (zero? (sign-x))
+            (positive? (sign-y)))
            (make-interval (* low-x up-y) (* up-x up-y)))
-          ((and ;; case 8 - inversion of above
-            (neg-lower-pos-upper? low-y up-y)
-            (not-neg? low-x up-x))
+          ((and
+            (zero? (sign-y))
+            (positive? (sign-x)))
            (make-interval (* low-y up-x) (* up-y up-x)))
-          (else ;; case 9 - lower bounds negative, upper bounds positive
+          (else
            (make-interval (min (* low-x up-y) (* low-y up-x))
                           (max (* up-x up-y) (* low-x low-y)))))))
         

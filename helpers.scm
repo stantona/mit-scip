@@ -1,10 +1,11 @@
+
 ;; Helper functions used in many of the exercises
 
 ;; negative?
 (define (negative? n) (< n 0))
 
 ;; positive?
-(define (positive? n) (>= n 0))
+(define (positive? n) (> n 0))
 
 ;; Increment number
 (define (1+ n) (+ n 1))
