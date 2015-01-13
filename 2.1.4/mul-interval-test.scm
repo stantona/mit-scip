@@ -2,17 +2,8 @@
 
 ;; The goal is to test the "9 case" implementation of mul-interval against the original
 ;; implementation.
-
 (load "interval-arith.scm")
-
-(define (assert predicate desc actual expected)
-  (print "\n" desc "\n")
-  (print "\nActual/Expected:\n")
-  (pretty-print actual)
-  (pretty-print expected)
-  (if (predicate actual expected)
-      (print "\nTest Passes\n")
-      (print "\nTest Fails\n")))
+(load "../test-helpers.scm")
 
 (define (test-case x y desc)
   (assert interval-eql? desc (mul-interval-cases x y) (mul-interval x y)))
