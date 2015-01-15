@@ -1,0 +1,12 @@
+** Why equivalent algebraic expressions may lead to different answers?
+
+Arithmetic affects intervals differently. Not only does the center change, but the boundaries also change.
+For division, the uncertainty ratio for two intervals are added to each other creating more uncertainty. So therefore
+two variables are affected; the center value and the uncertainty ratio (or lower and upper bounds). 
+
+The parallel resistor expressions, although equivalent produce different answers because each arithmetic operatoin adds
+to the uncertainty. Therefore depending on the operations performed, you will get different results although they are 
+algebraically equivalent.
+
+I think the task for catering for this problem is impossible and it is up to the developer to ensure that tolerance levels
+are contained.
