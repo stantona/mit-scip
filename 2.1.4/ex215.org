@@ -1,0 +1,28 @@
+** Is par2 better than par1?
+It is better because it produces tighter error bounds. The reason is the use of the Euclidean point (1, 1) which
+has zero uncertainty. 
+
+> (define R1 (make-center-percent 10 2))
+> (define R2 (make-center-percent 15 3))
+(interval-percent (div-interval one R1))
+1.999999999999995
+> (interval-percent (div-interval one R2))
+2.9999999999999987
+
+For e.g, you see that the tolerance of the result of the division of the point (1,1) with the resistor results in
+the same tolerance for the resistors. 
+
+The tolerance is adjusted for the addition:
+
+> (define result (add-interval (div-interval one R1) (div-interval one R2)))
+> result
+(.16276413478012566 . .17076933866330035)
+> (interval-percent result)
+2.4001200840588375
+
+And then once again the division with point occurs with the result:
+(define answer (div-interval one result))
+> (interval-percent answer)
+2.4001200840588366
+
+The tolerance is intact because of the division with a point.

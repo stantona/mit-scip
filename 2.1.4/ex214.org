@@ -39,7 +39,9 @@ algebraically equivalent.
 > (interval-percent div-result)
 .003999999998380517
 
-** Note floating point arithmetic inexactness
+
 Every time a division occurs, the tolerance expands. In this case we can see that the resulting
 tolerance for a division is the sum of the two. The center is the division of result of the division of the
 two center points. Therefore, division adds more uncertainty or expands tolerances.
+
+Note floating point inexactness.
