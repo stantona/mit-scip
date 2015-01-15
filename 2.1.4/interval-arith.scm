@@ -177,6 +177,8 @@
    (+ (interval-percent a) (interval-percent b))))
 
 ;; Exercise 2.14
+;; =============
+
 ;; Two ways of calculating parallel resistors
 
 (define (par1 r1 r2)
@@ -189,33 +191,3 @@
     (div-interval one
                   (add-interval (div-interval one r1)
                                 (div-interval one r2)))))
-
-
-;; Comparison of par1 and par2
-
-;; 5 ohms 3% tolerance
-;; > (define resistor1 (make-center-percent 5 3))
-;; > resistor1
-;; (97/20 . 103/20)
-;; 8 ohms 3.5% tolerance
-;; > (define resistor2 (make-center-percent 8 3.5))
-;; > resistor2
-;; (7.72 . 8.28)
-;; > (par1 resistor1 resistor2)
-;; (2.787937453462397 . 3.39236276849642)
-;; > (par2 resistor1 resistor2)
-;; (2.978679395385839 . 3.1751303052866717)
-
-;; Actual results of two intervals with small percentages
-;;
-;; (define intA (make-center-percent 1.0 0.5))
-;; > intA
-;; (.995 . 1.005)
-;; > (div-interval intA intA)
-;; (.9900497512437813 . 1.0100502512562812)
-;; > (define intB (make-center-percent 2.0 0.2))
-;; > intB
-;; (1.996 . 2.004)
-;; > (div-interval intA intB)
-;; (.4965069860279441 . .503507014028056)
-

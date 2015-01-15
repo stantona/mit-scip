@@ -1,0 +1,45 @@
+** Output from REPL
+> (define resistor1 (make-center-percent 20 5))
+> (define resistor2 (make-center-percent 25.5 7))
+> (define parallel1 (par1 resistor1 resistor2))
+> (define parallel2 (par2 resistor1 resistor2))
+> (interval-center parallel1)
+11.372960143843343
+> (interval-center parallel2)
+11.207682554096436
+> (interval-percent parallel1)
+17.947658851423395
+> (interval-percent parallel2)
+5.880307909202514
+
+** Conclusion
+We can see from above that Lem is right. The first method of calculating the parallel resistor
+algorithm produces a higher percentage tolerance than the second method, even though they are
+algebraically equivalent.
+
+** Arithmetic expressions
+> (define intB (make-center-percent 30 0.002))
+> (define intA (make-center-percent 20 0.001))
+> (div-interval intB intA)
+(1.4999550004499957 . 1.5000450004500046)
+> (define div-result (div-interval intB intA))
+> div-result
+(1.4999550004499957 . 1.5000450004500046)
+> (interval-center div-result)
+1.50000000045
+> (interval-percent div-result)
+.00299999999940091
+> (div-interval intB intB)
+(.999960000799984 . 1.0000400008000159)
+> (define div-result (div-interval intB intB))
+> div-result
+(.999960000799984 . 1.0000400008000159)
+> (interval-center div-result)
+1.0000000008
+> (interval-percent div-result)
+.003999999998380517
+
+** Note floating point arithmetic inexactness
+Every time a division occurs, the tolerance expands. In this case we can see that the resulting
+tolerance for a division is the sum of the two. The center is the division of result of the division of the
+two center points. Therefore, division adds more uncertainty or expands tolerances.
