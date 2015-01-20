@@ -1,12 +1,7 @@
 (define (cc amount coin-values)
-  (define (except-highest-denomination values)
-    (cdr values))
-  
-  (define (highest-denomination values)
-    (car values))
-
-  (define (no-more? values)
-    (null? values))
+  (define except-highest-denomination cdr)
+  (define highest-denomination car)
+  (define no-more? null?)
 
   (cond ((= amount 0) 1)
         ((or (< amount 0) (no-more? coin-values)) 0)
@@ -34,3 +29,7 @@
 ;; > (define uk-coins (list 0.5 1 2 5 10 20 50 100))
 ;; > (cc 100 uk-coins)
 ;; 104561
+
+;; The reason is that it is inherent in the formula and that it still tests each possible combination.
+;; However, by testing the lower amounts first, it affects the computation performance. 
+
