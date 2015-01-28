@@ -9,7 +9,7 @@
 ;; The secondary problem is taking the car of the list and
 ;; cons on to the new list. (This is the standard reverse).
 ;;
-;; The tertiary problem is that elements that are lists must
+;; The third problem is that elements that are lists must
 ;; also be reversed.
 (define (deep-reverse items)
   (define (try-deep item)
