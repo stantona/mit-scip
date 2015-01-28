@@ -12,7 +12,7 @@
 ;; The tertiary problem is that elements that are lists must
 ;; also be reversed.
 (define (deep-reverse items)
-  (define (traverse item)
+  (define (try-deep item)
     (if (not (list? item))
         item
         (iter item '())))
@@ -21,7 +21,6 @@
     (if (null? old)
         new
         (iter (cdr old)
-              (cons (traverse (car old)) new)))))
+              (cons (try-deep (car old)) new))))
 
-  (trace iter)
   (iter items '()))
