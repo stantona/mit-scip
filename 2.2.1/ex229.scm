@@ -23,15 +23,7 @@
   ((compose branch-structure left-branch) mobile))
 
 (define (right-structure mobile)
-  ((compose branch-structure left-branch) mobile))
-
-;; Test data.
-(define l-branch (make-branch 23 50))
-(define r-branch (make-branch 30 (make-mobile (make-branch 10 5) (make-branch 15 10))))
-(define test-mobile (make-mobile l-struct r-struct))
-
-;; Simple balanced mobile
-(define simple-mobile (make-mobile (make-branch 5 4) (make-branch 10 2)))
+  ((compose branch-structure right-branch) mobile))
 
 (define mobile? list?)
 
@@ -59,7 +51,7 @@
   
   (define (try-submobile? struct)
     (struct-eval struct (mobile-structure) (weight-structure)))
-  
+
   (and (branches-balance? (left-branch mobile) (right-branch mobile))
        ((compose try-submobile? left-structure) mobile) 
        ((compose try-submobile? right-structure) mobile)))

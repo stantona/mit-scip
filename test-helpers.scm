@@ -9,3 +9,11 @@
   (if (predicate actual expected)
       (print "\nTest Passes\n")
       (print "\nTest Fails\n")))
+
+
+(define (assert-true desc expected)
+  (print "\n" desc "\n")
+  (if expected
+      (print "\nSuccess\n")
+      (print "\nFails\n")))
+  
