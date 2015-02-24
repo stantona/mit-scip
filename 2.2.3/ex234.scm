@@ -1,0 +1,7 @@
+;; Exercise 2.34 Horner eval for coefficients evaluation
+
+(define (horner-eval x coefficient-sequence)
+  (accumulate (lambda (this-coeff higher-terms)
+                (+ this-coeff (* x higher-terms)))
+              0
+              coefficient-sequence))
