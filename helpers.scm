@@ -53,3 +53,13 @@
          (cons (car sequence)
                (filter predicate (cdr sequence))))
         (else (filter predicate (cdr sequence)))))
+
+;; Function to create a list from a low boundary to a high boundary
+(define (enumerate-interval low high)
+  (if (> low high)
+      '()
+      (cons low (enumerate-interval (+ low 1) high))))
+
+;; Function to perform a flat map on a seq
+(define (flatmap proc seq)
+  (accumulate append '() (map proc seq)))
