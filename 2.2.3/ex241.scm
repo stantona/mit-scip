@@ -3,7 +3,7 @@
 
 (load "../helpers.scm")
 
-(define (sum-triplets n s)
+(define (find-triplets-aggregate n s)
 
   (define (equal? triplet)
     (= (cadr triplet) s))
