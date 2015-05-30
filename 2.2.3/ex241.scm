@@ -18,7 +18,3 @@
                                      (enumerate-interval 1 (1- j)))))
                       (enumerate-interval 1 (1- k))))
            (enumerate-interval 1 n)))
-           
-                  
-                         
-
