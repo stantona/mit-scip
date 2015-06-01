@@ -17,14 +17,15 @@
        (abs (- (col a) (col b)))))
 
   (define (intersect? a b)
-    (or (= (row a) (row b)) (diagonal? a b)))
+    (or (= (row a) (row b)) 
+        (diagonal? a b)))
                
   (define (safe? positions)
-    (define (safe-position? knight rest-of-queens)
+    (define (safe-position? queen rest-of-queens)
       (cond ((null? rest-of-queens) #t)
-            ((intersect? knight (car rest-of-queens)) #f)
+            ((intersect? queen (car rest-of-queens)) #f)
             (else 
-             (safe-position? knight (cdr rest-of-queens)))))
+             (safe-position? queen (cdr rest-of-queens)))))
 
       (safe-position? (car positions) (cdr positions)))
 
