@@ -1,3 +1,9 @@
+;; Exercise 2.42
+
+;; Exercise 2.43
+;; Switching the arguments in flatmap where k - 1 columns are generated for each row presents a massive
+;; performance problem. The call to (queen-cols (- k 1)) gets repeated for each row. The original performance
+;; was O(k^2). When switched it becomes O(k^k).
 (load "../helpers.scm")
 
 (define (queens board-size)
