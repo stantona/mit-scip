@@ -20,7 +20,7 @@
    (- (xcor-vect vect1) (xcor-vect vect2))
    (- (ycor-vect vect1) (ycor-vect vect2))))
 
-(define (scale-vector vect scale)
+(define (scale-vect scale vect)
   (make-vect
    (* (xcor-vect vect) scale)
    (* (ycor-vect vect) scale)))

@@ -10,7 +10,7 @@
 (define (make-frame-v2 origin edge1 edge2)
   (cons origin (cons edge1 edge2)))
 
-(define (frame-origin frame)
+(define (origin-frame frame)
   (car frame))
 
 (define (frame-edges frame)
@@ -24,6 +24,9 @@
 
 (define (frame-edge-b-v2 frame)
   (cdr (frame-edges frame)))
+
+(define edge1-frame frame-edge-a)
+(define edge2-frame frame-edge-b-v2)
 
 ;; Test variables.
 (define test-origin (make-vect -3 3))
@@ -46,7 +49,7 @@
     (newline))
   
   (display "---- Testing ----\n")
-  (test-output "Origin values equality" frame-origin)
+  (test-output "Origin values equality" origin-frame)
   (test-output "frame-edge-a equality" frame-edge-a)
 
   (display "frame-edge-b equality:\t")
