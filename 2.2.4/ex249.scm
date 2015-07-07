@@ -44,3 +44,17 @@
         (side3 (make-segment (make-vect 1 0) (make-vect 1 1)))
         (side4 (make-segment (make-vect 0 1) (make-vect 1 1))))
     (segments->painter (list side1 side2 side3 side4))))
+
+;; Draw an X in the frame
+(define (painter->draw-x)
+  (let ((line1 (make-segment (make-vect 0 0) (make-vect 1 1)))
+        (line2 (make-segment (make-vect 1 0) (make-vect 0 1))))
+    (segments->painter (list line1 line2))))
+
+;; Draw a diamond
+(define (painter->draw-diamond)
+  (let ((line1 (make-segment (make-vect 0 0.5) (make-vect 0.5 1)))
+        (line2 (make-segment (make-vect 0.5 1) (make-vect 1 0.5)))
+        (line3 (make-segment (make-vect 1 0.5) (make-vect 0.5 0)))
+        (line4 (make-segment (make-vect 0.5 0) (make-vect 0 0.5))))
+    (segments->painter (list line1 line2 line3 line4))))
