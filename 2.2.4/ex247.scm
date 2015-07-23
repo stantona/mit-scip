@@ -10,6 +10,8 @@
 (define (make-frame-v2 origin edge1 edge2)
   (cons origin (cons edge1 edge2)))
 
+(define make-frame make-frame-v2)
+
 (define (origin-frame frame)
   (car frame))
 

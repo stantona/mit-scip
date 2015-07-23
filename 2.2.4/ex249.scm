@@ -11,8 +11,8 @@
 
 ;; Some test data, where should this go?
 (define origin (make-vect 2 2))
-(define edge-one (make-vect -1 6))
-(define edge-two (make-vect 5 7))
+(define edge-one (make-vect -1 2))
+(define edge-two (make-vect 2 0.5))
 (define a-frame (make-frame-v2 origin edge-one edge-two))
 
 (define (frame-coord-map frame)
@@ -58,3 +58,10 @@
         (line3 (make-segment (make-vect 1 0.5) (make-vect 0.5 0)))
         (line4 (make-segment (make-vect 0.5 0) (make-vect 0 0.5))))
     (segments->painter (list line1 line2 line3 line4))))
+
+;; Draw the wave
+;; (define (painter->draw-wave)
+;;   (let ((left-foot (make-segment (make-vector 0 0.35) (make-vector 0 0.45)))
+;;         (inner-left-leg (make-segment (make-vector 0 0.45) (make-vector 5 4)))
+;;         (inner-right-leg (make-segment (make-vector
+
