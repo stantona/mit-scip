@@ -10,6 +10,4 @@
 
   (cond ((lists-empty?) #t)
         ((either-list-empty?) #f)
-        ((eq? (car lat1) (car lat2)) (equal? (cdr lat1) (cdr lat2)))
-        (else
-         #f)))
+        ((eq? (car lat1) (car lat2)) (equal? (cdr lat1) (cdr lat2)))))
