@@ -1,7 +1,7 @@
 ;; Exercise 2.54
 ;; Implementation of equal?. Equal? compares lists of atoms. The set must much exactly, including the order.
 
-(define (equal1? lat1 lat2)
+(define (equal? lat1 lat2)
   (define (lists-empty?)
     (and (null? lat1) (null? lat2)))
 
