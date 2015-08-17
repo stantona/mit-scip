@@ -4,7 +4,7 @@
 
 ''abracadabra #=> (quote abracadabra)
 
-'abracadabra #= produces an atom (symbol)
+'abracadabra #=> produces an atom (symbol)
 
 ;; The quote generates an atom. Another quote prefixed with an atom generates a list, where the first element is a quote, and the
 ;; second element is an atom, abracadabra.
