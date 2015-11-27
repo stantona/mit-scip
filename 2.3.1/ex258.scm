@@ -30,33 +30,32 @@
         (else
          (list '** exp exponent))))
 
+;; Exercise 2.58
 (define (sum? x)
-  (and (pair? x) (eq? (car x) '+)))
+  (and (pair? x) (eq? (cadr x) '+)))
 
+;; Exercise 2.58
 (define (product? x)
-  (and (pair? x) (eq? (car x) '*)))
+  (and (pair? x) (eq? (cadr x) '*)))
 
-;; Exercise 2.56
+;; Exercise 2.58
 (define (exponentiation? exp)
-  (and (pair? exp) (eq? (car exp) '**)))
+  (and (pair? exp) (eq? (cadr exp) '**)))
   
-(define (addend s) (cadr s))
+;; Exercise 2.58
+(define (addend s) (car s))
 
-(define (multiplier p) (cadr p))
+(define (multiplier p) (car p))
 
-;; Exercise 2.57
-(define (augend s)
-  (let ((terms (cddr s)))
-    (accumulate make-sum (car terms) (cdr terms))))
+;; Exercise 2.58
+(define (augend s) (caddr s))
 
-;; Exercise 2.57
-(define (multiplicand p)
-  (let ((terms (cddr p)))
-    (accumulate make-product (car terms) (cdr terms))))
+;; Exercise 2.58
+(define (multiplicand p) (caddr p))
 
-;; Exercise 2.56
+;; Exercise 2.58
 (define (exponent exp) (caddr exp))
-(define (base exp) (cadr exp))
+(define (base exp) (car exp))
 
 (define (deriv exp var)
   (cond ((number? exp) 0)
