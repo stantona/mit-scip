@@ -79,7 +79,9 @@
            (iterate (cdddr exp)
                     (cons (build-multiplier-precedence exp) result)))
           (else
-           (iterate (cdr exp) (cons (car exp) result)))))
+           (iterate (cdr exp)
+                    (cons (parse-precedence (car exp)) result)))))
+
   (iterate exp '()))
 
 (define (deriv exp var)
