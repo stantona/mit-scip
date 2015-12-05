@@ -27,24 +27,35 @@
                 (cons (make-tree this-entry left-tree right-tree)
                       remaining-elts))))))))
 
-;; Accepts to binary trees, and performs a union, returning a balanced
-;; binary tree.
-(define (union-set set1 set2)
+(define (intersection-list list1 list2)
+  (cond ((or (null? list1) (null? list2)) '())
+        ((< (car list1) (car list2))
+         (intersection-list (cdr list1) list2))
+        ((> (car list1) (car list2))
+         (intersection-list list1 (cdr list2)))
+        (else
+         (cons (car list1)
+               (intersection-list (cdr list1) (cdr list2))))))
 
-  (define (append-uniq list1 list2)
-    (cond ((null? list1) list2)
-          ((null? list2) list1)
-          (else
-           ((let ((first-list1 (car list1))
-                  (first-list2 (car list2)))
-              (cond ((< first-list1 first-list2)
-                     (cons first-list1 (append-uniq (cdr list1) list2)))
-                    ((> first-list1 first-list2)
-                     (cons first-list2 (append-uniq list1 (cdr list2))))
-                    (else
-                     (cons first-list1 (append-uniq (cdr list1) (cdr list2))))))))))
+(define (union-list list1 list2)
+  (cond ((null? list1) list2)
+        ((null? list2) list1)
+        ((< (car list1) (car list2))
+         (cons (car list1)
+               (union-list (cdr list1) list2)))
+        ((> (car list1) (car list2))
+         (cons (car list2)
+               (union-list list1 (cdr list2))))
+        (else
+         (cons (car list1)
+               (union-list (cdr list1) (cdr list2))))))
+
+(define (union-set set1 set2)
+  (list->tree (union-list
+               (tree->list set1)
+               (tree->list set2))))
      
-  (let ((elements (append-uniq
-                   (tree->list set1)
-                   (tree->list set2))))
-    (list->tree elements)))
+(define (intersection-set set1 set2)
+  (list->tree (intersection-list
+               (tree->list set1)
+               (tree->list set2))))
