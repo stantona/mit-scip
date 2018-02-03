@@ -5,10 +5,17 @@
         (else (element-of-set? x (cdr set)))))
 
 (define (adjoin-set x set)
-  (cond ((or (null? set)
-             (< x (car set)))
-         (cons x set))
+  (cond ((null? set) (cons x set))
         ((= x (car set)) set)
-        (else (cons (car set)
-                    (adjoin-set x (cdr set))))))
-         
+        ((< x (car set)) (cons x set))
+        (else
+         (cons (car set)
+               (adjoin-set x (cdr set))))))
+
+(newline)
+(write-string "Element added to the set in the first position:\n")
+(pp (adjoin-set 1 '(3 4 5 10 12)))
+(write-string "Element not adjoined to the set because it already exists:\n")
+(pp (adjoin-set 5 '(3 4 5 10 12)))
+(write-string "Element adjoined to the end of the set:\n")
+(pp (adjoin-set 14 '(3 4 5 10 12)))

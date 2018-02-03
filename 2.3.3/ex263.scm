@@ -26,14 +26,17 @@
              (make-tree 9
                         (make-tree 7 '() '())
                         (make-tree 11 '() '()))))
-                        
+
 ;; recursive implementation using append
+(trace append)
 (define (tree->list-1 tree)
   (if (null? tree)
       '()
       (append (tree->list-1 (left-branch tree))
               (cons (entry tree)
                     (tree->list-1 (right-branch tree))))))
+
+;; (trace tree->list-1)
 
 ;; iterative implementation
 (define (tree->list-2 tree)
