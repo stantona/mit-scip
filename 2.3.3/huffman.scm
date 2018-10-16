@@ -62,20 +62,19 @@
 ;; Exercise 2.68
 ;; Tested against 'decode', which returns the
 ;; sample message
-(define (encode-symbol symbol tree)
+(define (encode-symbol sym tree)
+  (define (has-symbol? sym branch)
+    (member sym (symbols branch)))
+  (if (leaf? tree)
+      '()
+      (let ((left (left-branch tree))
+            (right (right-branch tree)))
+        (cond ((has-symbol? sym left)
+               (cons 0 (encode-symbol sym left)))
+              ((has-symbol? sym right)
+               (cons 1 (encode-symbol sym right)))
+            (else (error "symbol not in tree" sym))))))
 
-  (define (member? symbol branch)
-    (element-of-set? symbol (symbols branch)))
-
-  (cond ((leaf? tree) '())
-        ((member? symbol (left-branch tree))
-         (cons 0 (encode-symbol symbol (left-branch tree))))
-        ((member? symbol (right-branch tree))
-         (cons 1 (encode-symbol symbol (right-branch tree))))
-        (else
-         (error "Symbol is not a member" symbol))))
-  
-         
 (define (encode message tree)
   (if (null? message)
       '()
